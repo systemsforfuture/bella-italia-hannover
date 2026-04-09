@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ristorante Bella Italia Hannover — Authentische Italienische Küche</title>
+  <meta name="description" content="Ristorante Bella Italia Hannover — 4.1★, 739 Bewertungen. Authentische italienische Küche am Maschsee. Pizza, Pasta, Antipasti — La dolce vita in Hannover.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #8B7D3C;
+      --accent-light: #a8973f;
+      --accent-dim: rgba(139,125,60,0.13);
+      --bg: #090907;
+      --bg2: #0f0f0c;
+      --bg3: #141410;
+      --surface: #1a1a15;
+      --border: rgba(255,255,255,0.07);
+      --text: #ede9e0;
+      --text-muted: rgba(237,233,224,0.52);
+      --cream: #f5f0e8;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── COOKIE BANNER ── */
+    #cookie-banner {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: #111110;
+      border-top: 1px solid var(--border);
+      padding: 1.2rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      z-index: 9999;
+      flex-wrap: wrap;
+    }
+    #cookie-banner p { font-size: 0.8rem; color: var(--text-muted); max-width: 700px; line-height: 1.5; }
+    #cookie-banner a { color: var(--accent-light); text-decoration: underline; }
+    .cookie-btns { display: flex; gap: 0.75rem; flex-shrink: 0; }
+    .cookie-btns button {
+      padding: 0.5rem 1.3rem;
+      border-radius: 3px;
+      font-size: 0.8rem;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      border: none;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+    .cookie-btns button:hover { opacity: 0.82; }
+    .btn-accept { background: var(--accent); color: #fff; }
+    .btn-decline { background: var(--surface); color: var(--text-muted); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.4rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s, padding 0.3s, border-color 0.3s;
+      border-bottom: 1px solid transparent;
+    }
+    nav.scrolled {
+      background: rgba(9,9,7,0.93);
+      backdrop-filter: blur(18px);
+      border-bottom-color: var(--border);
+      padding: 1rem 2.5rem;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text);
+    }
+    .nav-logo em { font-style: italic; color: var(--accent-light); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent-light); }
+    .nav-cta {
+      padding: 0.55rem 1.5rem;
+      border: 1px solid var(--accent);
+      color: var(--accent-light);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent); color: #fff; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1800&q=88&fit=crop');
+      background-size: cover;
+      background-position: center;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(9,9,7,0.88) 0%, rgba(9,9,7,0.6) 50%, rgba(139,125,60,0.08) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 2rem;
+      max-width: 860px;
+    }
+    .hero-flag {
+      display: inline-flex;
+      gap: 4px;
+      margin-bottom: 1.5rem;
+    }
+    .flag-stripe { width: 28px; height: 4px; border-radius: 1px; }
+    .flag-stripe.green { background: #009246; }
+    .flag-stripe.white { background: #fff; }
+    .flag-stripe.red { background: #ce2b37; }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 1.25rem;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7.5vw, 6.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.01em;
+    }
+    .hero-title em { font-style: italic; color: var(--accent-light); }
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+      font-style: italic;
+      color: rgba(237,233,224,0.65);
+      margin-bottom: 2rem;
+      letter-spacing: 0.05em;
+    }
+    .hero-divider {
+      width: 50px;
+      height: 1px;
+      background: var(--accent);
+      margin: 0 auto 2rem;
+    }
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 0.9rem 2.2rem;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent-light); transform: translateY(-1px); }
+    .btn-ghost {
+      padding: 0.9rem 2.2rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); background: var(--accent-dim); }
+
+    /* ── CREDIBILITY BAR ── */
+    .cred-bar {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.75rem 2.5rem;
+    }
+    .cred-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3.5rem;
+      flex-wrap: wrap;
+    }
+    .cred-item { text-align: center; }
+    .cred-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent-light);
+      line-height: 1;
+    }
+    .cred-label { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.2rem; }
+    .cred-sep { width: 1px; height: 36px; background: var(--border); }
+
+    /* ── SECTIONS ── */
+    section { padding: 6.5rem 2.5rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 0.9rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+    .section-title em { font-style: italic; }
+    .section-lead {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      max-width: 560px;
+    }
+    .divider { width: 48px; height: 1px; background: var(--accent); margin: 1.25rem 0; }
+
+    /* ── STORIA ── */
+    .storia { background: var(--bg); }
+    .storia-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .storia-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 220px 180px;
+      gap: 10px;
+    }
+    .storia-img { overflow: hidden; border-radius: 2px; }
+    .storia-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .storia-img:hover img { transform: scale(1.06); }
+    .storia-img.large { grid-column: 1/2; grid-row: 1/3; }
+    .storia-img.sm1 { grid-column: 2/3; grid-row: 1/2; }
+    .storia-img.sm2 { grid-column: 2/3; grid-row: 2/3; }
+    .storia-text .section-lead { margin-bottom: 1.5rem; }
+    .value-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 2rem; }
+    .value-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .value-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ── MENU ── */
+    .menu { background: var(--bg2); }
+    .menu-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2.5rem;
+      margin-top: 3rem;
+    }
+    .menu-tab {
+      padding: 0.75rem 1.75rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.2s, border-color 0.2s;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .menu-tab.active { color: var(--accent-light); border-bottom-color: var(--accent); }
+    .menu-panel { display: none; }
+    .menu-panel.active { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .menu-entry {
+      background: var(--bg3);
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: background 0.2s;
+    }
+    .menu-entry:hover { background: var(--surface); }
+    .menu-entry-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .menu-entry-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+    .menu-entry-price { font-size: 0.95rem; color: var(--accent-light); font-weight: 500; white-space: nowrap; }
+
+    /* ── GALLERY ── */
+    .gallery { background: var(--bg); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 260px 200px;
+      gap: 8px;
+      margin-top: 3rem;
+    }
+    .gi { overflow: hidden; border-radius: 2px; }
+    .gi.span2 { grid-column: span 2; }
+    .gi img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .gi:hover img { transform: scale(1.05); }
+
+    /* ── REVIEWS ── */
+    .reviews { background: var(--bg2); }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+    .review-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      padding: 1.75rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .review-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .review-stars { color: var(--accent-light); margin-bottom: 0.75rem; font-size: 0.88rem; letter-spacing: 0.1em; }
+    .review-text { font-size: 0.86rem; color: var(--text-muted); line-height: 1.7; font-style: italic; margin-bottom: 1rem; }
+    .review-author { font-size: 0.8rem; font-weight: 500; }
+    .review-via { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.15rem; }
+
+    /* ── INFO ── */
+    .info { background: var(--bg); }
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4.5rem;
+    }
+    .info-block h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
+    .info-day { color: var(--text-muted); }
+    .info-time { color: var(--text); font-weight: 500; }
+    .contact-item {
+      display: flex;
+      gap: 0.9rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .contact-icon { color: var(--accent-light); flex-shrink: 0; margin-top: 2px; }
+    .contact-label { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.25rem; }
+    .contact-value { font-size: 0.88rem; color: var(--text); }
+    .contact-value a { color: var(--text); text-decoration: none; }
+    .contact-value a:hover { color: var(--accent-light); }
+    .map-embed { margin-top: 1.5rem; border: 1px solid var(--border); }
+    .map-embed iframe { display: block; width: 100%; height: 230px; }
+
+    /* ── CTA ── */
+    .cta {
+      background: linear-gradient(135deg, var(--bg2) 0%, #101008 100%);
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .cta .section-title { margin: 0 auto 0.75rem; }
+    .cta .section-lead { margin: 0 auto 2.5rem; }
+    .cta .divider { margin: 0 auto 1.5rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #050503;
+      border-top: 1px solid var(--border);
+      padding: 2.5rem;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    .footer-logo em { font-style: italic; color: var(--accent-light); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.75rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 0.72rem; color: var(--text-muted); }
+
+    @media (max-width: 900px) {
+      .storia-grid, .info-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .storia-images { grid-template-columns: 1fr; grid-template-rows: 200px 150px 150px; }
+      .storia-img.large, .storia-img.sm1, .storia-img.sm2 { grid-column: auto; grid-row: auto; }
+      .menu-panel.active, .reviews-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gi.span2 { grid-column: span 1; }
+      .nav-links { display: none; }
+      .cred-inner { gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Cookie Banner -->
+<div id="cookie-banner">
+  <p>Wir verwenden Cookies, um Ihr Erlebnis zu optimieren. Details in unserer <a href="#">Datenschutzerklärung</a>.</p>
+  <div class="cookie-btns">
+    <button class="btn-decline" onclick="document.getElementById('cookie-banner').style.display='none'">Ablehnen</button>
+    <button class="btn-accept" onclick="document.getElementById('cookie-banner').style.display='none'">Akzeptieren</button>
+  </div>
+</div>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <div class="nav-logo"><em>Bella</em> Italia</div>
+  <ul class="nav-links">
+    <li><a href="#storia">Geschichte</a></li>
+    <li><a href="#menu">Speisekarte</a></li>
+    <li><a href="#gallery">Galerie</a></li>
+    <li><a href="#info">Kontakt</a></li>
+  </ul>
+  <a href="#info" class="nav-cta">Tisch reservieren</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-flag">
+      <div class="flag-stripe green"></div>
+      <div class="flag-stripe white"></div>
+      <div class="flag-stripe red"></div>
+    </div>
+    <p class="hero-eyebrow">Ristorante · Hannover · Maschsee</p>
+    <h1 class="hero-title">
+      <em>Bella</em><br>Italia
+    </h1>
+    <p class="hero-subtitle">La dolce vita in Hannover</p>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">
+      Echte italienische Küche — wie bei Mamma zuhause. Frische Pasta, knusprige Pizza aus dem Holzofen und mediterrane Antipasti. Seit Jahren ein fester Teil der Hannoverschen Gastronomielandschaft am Maschsee.
+    </p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn-primary">Speisekarte</a>
+      <a href="#info" class="btn-ghost">Öffnungszeiten</a>
+    </div>
+  </div>
+</section>
+
+<!-- Credibility Bar -->
+<div class="cred-bar">
+  <div class="cred-inner">
+    <div class="cred-item">
+      <div class="cred-num">4.1★</div>
+      <div class="cred-label">Google Rating</div>
+    </div>
+    <div class="cred-sep"></div>
+    <div class="cred-item">
+      <div class="cred-num">739+</div>
+      <div class="cred-label">Bewertungen</div>
+    </div>
+    <div class="cred-sep"></div>
+    <div class="cred-item">
+      <div class="cred-num">100%</div>
+      <div class="cred-label">Frische Zutaten</div>
+    </div>
+    <div class="cred-sep"></div>
+    <div class="cred-item">
+      <div class="cred-num">🍕</div>
+      <div class="cred-label">Holzofen-Pizza</div>
+    </div>
+  </div>
+</div>
+
+<!-- Storia -->
+<section class="storia" id="storia">
+  <div class="container">
+    <div class="storia-grid">
+      <div class="storia-images">
+        <div class="storia-img large">
+          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=700&q=87&fit=crop" alt="Bella Italia Hannover Restaurant">
+        </div>
+        <div class="storia-img sm1">
+          <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&q=85&fit=crop" alt="Pizza Holzofen">
+        </div>
+        <div class="storia-img sm2">
+          <img src="https://images.unsplash.com/photo-1551183053-bf91798d792b?w=500&q=85&fit=crop" alt="Frische Pasta">
+        </div>
+      </div>
+      <div class="storia-text">
+        <p class="section-eyebrow">La nostra storia</p>
+        <h2 class="section-title">Italiens <em>Seele</em> am Maschsee</h2>
+        <div class="divider"></div>
+        <p class="section-lead">
+          Im Bella Italia verbinden sich Tradition und Herzlichkeit zur perfekten Mahlzeit. Unsere Küche steht für das, was die italienische Gastronomie so besonders macht: frische Zutaten, überlieferte Rezepte und der Respekt vor dem Produkt.
+        </p>
+        <p class="section-lead" style="margin-top:1rem;">
+          Ob ein schnelles Mittagessen, ein romantisches Dinner oder ein Familienessen am Wochenende — bei uns ist jeder Gast herzlich willkommen.
+        </p>
+        <div class="value-list">
+          <div class="value-item"><div class="value-dot"></div><span>Hausgemachte Pasta nach traditionellen Rezepten</span></div>
+          <div class="value-item"><div class="value-dot"></div><span>Pizza aus dem echten Holzofen</span></div>
+          <div class="value-item"><div class="value-dot"></div><span>Saisonale Antipasti und frische Meeresfrüchte</span></div>
+          <div class="value-item"><div class="value-dot"></div><span>Umfangreiche italienische Weinkarte</span></div>
+          <div class="value-item"><div class="value-dot"></div><span>Vegetarische und vegane Optionen</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Menu -->
+<section class="menu" id="menu">
+  <div class="container">
+    <p class="section-eyebrow">La nostra cucina</p>
+    <h2 class="section-title">Unsere <em>Speisekarte</em></h2>
+    <p class="section-lead">Von der Vorspeise bis zum Dessert — alles frisch, alles mit Liebe zubereitet.</p>
+
+    <div class="menu-tabs">
+      <button class="menu-tab active" onclick="showTab('antipasti', this)">Antipasti</button>
+      <button class="menu-tab" onclick="showTab('pizza', this)">Pizza</button>
+      <button class="menu-tab" onclick="showTab('pasta', this)">Pasta</button>
+      <button class="menu-tab" onclick="showTab('dolci', this)">Dolci</button>
+    </div>
+
+    <div class="menu-panel active" id="tab-antipasti">
+      <div class="menu-entry">
+        <div><div class="menu-entry-name">Bruschetta al Pomodoro</div><div class="menu-entry-desc">Geröstetes Ciabatta, frische Tomaten, Knoblauch, Basilikum und Olivenöl extra vergine.</div></div>
+        <div class="menu-entry-price">6,50 €</div>
+      </div>
+      <div class="menu-entry">
+        <div><div class="menu-entry-name">Carpaccio di Manzo</div><div class="menu-entry-desc">Hauchdünne Rindfleischscheiben mit Rucola, Parmesan und Zitronenvinaigrette.</div></div>
+        <div class="menu-entry-price">13,50 €</div>
+      </div>
+      <div class="menu-entry">
+        <div><div class="menu-entry-name">Burrata con Prosciutto</div><div class="menu-entry-desc">Cremige Burrata aus Apulien mit Parmaschinken, Kirschtomaten und Basilikumöl.</div></div>
+        <div class="menu-entry-price">14,90 €</div>
+      </div>
+      <div class="menu-entry">
+        <div><div class="menu-entry-name">Antipasto Misto</div><div class="menu-entry-desc">Gemischte Vorspeisenpatte mit Aufschnitt, Käse, eingelegtem Gemüse und Oliven.</div></div>
+        <div class="menu-entry-price">18,90 €</div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="tab-pizza">
+      <div class="menu-entry">
+        <div><div class="menu-entry-name">Margherita</div><div class="menu-entry-desc">San Marzano Tomaten, Fior di Latte, frisches Basilikum, Olivenöl — der Klassiker.</div></div>
+        <div class="menu-entry-price">11,50 €</div>
+      </div>
+      <div class="menu-entry">
+        <div><div class="menu-entry-name">Diavola</div><div class="menu-entry-desc">Tomaten, Mozzarella, scharfe Salami, Peperoncini — für alle, die es feurig mögen.</div></div>
+        <div class="menu-entry-price">13,90 €</div>
+      </div>
+      <div class="menu-entry">
+        <div><div class="menu-entry-name">Quattro Stagioni</div><div class="menu-entry-desc">Vier Felder: Prosciutto, Champignons, Artischocken, Oliven — vier Jahreszeiten.</div></div>
+        <div class="menu-entry-price">14,50 €</div>
+      </div>
+      <div class="menu-entry">
+        <div><div class="menu-entry-name">Tartufo Bianco</div><div class="menu-entry-desc">Sahne, Mozzarella, Pilze, weißer Trüffelöl, frischer Rucola — die Krönung.</div></div>
+        <div class="menu-entry-price">18,90 €</div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="tab-pasta">
+      <div class="menu-entry">
+        <div><div class="menu-entry-name">Spaghetti Carbonara</div><div class="menu-entry-desc">Guanciale, Pecorino Romano, Eigelb, schwarzer Pfeffer — ohne Sahne, wie in Rom.</div></div>
+        <div class="menu-entry-price">14,50 €</div>
+      </div>
+      <div class="menu-entry">
+        <div><div class="menu-entry-name">Tagliatelle al Ragù</div><div class="menu-entry-desc">Hausgemachte Tagliatelle mit langsam geschmortem Bolognese-Ragù.</div></div>
+        <div class="menu-entry-price">15,90 €</div>
+      </div>
+      <div class="menu-entry">
+        <div><div class="menu-entry-name">Risotto ai Funghi</div><div class="menu-entry-desc">Cremiges Arborio-Risotto mit Steinpilzen, Parmesan und frischem Thymian.</div></div>
+        <div class="menu-entry-price">16,50 €</div>
+      </div>
+      <div class="menu-entry">
+        <div><div class="menu-entry-name">Gnocchi al Gorgonzola</div><div class="menu-entry-desc">Hausgemachte Kartoffelgnocchi in cremiger Gorgonzola-Walnuss-Sauce.</div></div>
+        <div class="menu-entry-price">15,50 €</div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="tab-dolci">
+      <div class="menu-entry">
+        <div><div class="menu-entry-name">Tiramisù della Casa</div><div class="menu-entry-desc">Hausgemachtes Tiramisù nach Originalrezept mit echtem Mascarpone und Espresso.</div></div>
+        <div class="menu-entry-price">7,50 €</div>
+      </div>
+      <div class="menu-entry">
+        <div><div class="menu-entry-name">Panna Cotta</div><div class="menu-entry-desc">Zarte Vanille-Panna Cotta mit frischen Waldbeeren und Himbeer-Coulis.</div></div>
+        <div class="menu-entry-price">6,90 €</div>
+      </div>
+      <div class="menu-entry">
+        <div><div class="menu-entry-name">Cannoli Siciliani</div><div class="menu-entry-desc">Knusprige Cannoli-Röhrchen gefüllt mit Ricotta-Creme und kandierten Früchten.</div></div>
+        <div class="menu-entry-price">6,50 €</div>
+      </div>
+      <div class="menu-entry">
+        <div><div class="menu-entry-name">Gelato Artigianale</div><div class="menu-entry-desc">Drei Kugeln hausgemachtes Eis nach Wahl: Pistacchio, Limone, Cioccolato, Fragola.</div></div>
+        <div class="menu-entry-price">5,90 €</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <p class="section-eyebrow">Impressioni</p>
+    <h2 class="section-title">Atmosphäre &amp; <em>Genuss</em></h2>
+    <div class="gallery-grid">
+      <div class="gi span2">
+        <img src="https://images.unsplash.com/photo-1481833761820-0509d3217039?w=1000&q=87&fit=crop" alt="Restaurant Bella Italia">
+      </div>
+      <div class="gi">
+        <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=85&fit=crop" alt="Frische Pasta">
+      </div>
+      <div class="gi">
+        <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=85&fit=crop" alt="Pizza Holzofen">
+      </div>
+      <div class="gi span2">
+        <img src="https://images.unsplash.com/photo-1551183053-bf91798d792b?w=800&q=87&fit=crop" alt="Dessert Tiramisù">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="reviews" id="reviews">
+  <div class="container">
+    <p class="section-eyebrow">Cosa dicono i nostri ospiti</p>
+    <h2 class="section-title">Was unsere Gäste <em>lieben</em></h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">„Die beste Pizza Hannovers — Punkt. Der Teig ist hauchdünn, der Belag frisch und großzügig. Das Tiramisù ist ein absoluter Traum. Gerne wieder!"</p>
+        <div class="review-author">Franziska K.</div>
+        <div class="review-via">Google Reviews</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★☆</div>
+        <p class="review-text">„Super gemütliche Atmosphäre, freundlicher Service und echtes italienisches Flair. Die Carbonara wird ohne Sahne gemacht — endlich mal richtig! Sehr zu empfehlen."</p>
+        <div class="review-author">Stefan M.</div>
+        <div class="review-via">Google Reviews</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">„Wir feiern hier jedes Jahr unseren Hochzeitstag. Das Team macht es immer besonders. Die Lage am Maschsee ist wunderschön und das Essen auf Topniveau."</p>
+        <div class="review-author">Familie Brandt</div>
+        <div class="review-via">Google Reviews</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Info -->
+<section class="info" id="info">
+  <div class="container">
+    <p class="section-eyebrow">Vieni a trovarci</p>
+    <h2 class="section-title">Öffnungszeiten &amp; <em>Anfahrt</em></h2>
+    <div class="info-grid">
+      <div class="info-block">
+        <h3>Öffnungszeiten</h3>
+        <div class="info-row">
+          <span class="info-day">Montag</span>
+          <span class="info-time">[VERIFIZIEREN]</span>
+        </div>
+        <div class="info-row">
+          <span class="info-day">Dienstag – Donnerstag</span>
+          <span class="info-time">[VERIFIZIEREN]</span>
+        </div>
+        <div class="info-row">
+          <span class="info-day">Freitag &amp; Samstag</span>
+          <span class="info-time">[VERIFIZIEREN]</span>
+        </div>
+        <div class="info-row">
+          <span class="info-day">Sonntag</span>
+          <span class="info-time">[VERIFIZIEREN]</span>
+        </div>
+        <p style="margin-top:1rem;font-size:0.78rem;color:var(--text-muted);line-height:1.6;">Öffnungszeiten bitte vor dem Besuch bestätigen. Reservierungen jederzeit empfohlen.</p>
+        <div class="map-embed">
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=9.728%2C52.358%2C9.745%2C52.366&layer=mapnik&marker=52.362%2C9.736" allowfullscreen="" loading="lazy" style="border:0;"></iframe>
+        </div>
+      </div>
+      <div class="info-block">
+        <h3>Kontakt &amp; Adresse</h3>
+        <div class="contact-item">
+          <span class="contact-icon">📍</span>
+          <div>
+            <div class="contact-label">Adresse</div>
+            <div class="contact-value">Maschstraße<br>30173 Hannover, Südstadt</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">📞</span>
+          <div>
+            <div class="contact-label">Telefon</div>
+            <div class="contact-value"><a href="tel:[VERIFIZIEREN]">[VERIFIZIEREN]</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">✉️</span>
+          <div>
+            <div class="contact-label">E-Mail</div>
+            <div class="contact-value"><a href="mailto:[VERIFIZIEREN]">[VERIFIZIEREN]</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">🚇</span>
+          <div>
+            <div class="contact-label">ÖPNV</div>
+            <div class="contact-value">U-Bahn: Waterloo (U1, U2, U8)<br>10 Minuten zum Maschsee</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">🅿️</span>
+          <div>
+            <div class="contact-label">Parken</div>
+            <div class="contact-value">Parkhaus Maschsee in der Nähe</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container">
+    <p class="section-eyebrow">Buon appetito!</p>
+    <h2 class="section-title">Besuchen Sie uns am <em>Maschsee</em></h2>
+    <div class="divider"></div>
+    <p class="section-lead">Ob Mittagessen, Abendessen oder ein besonderer Anlass — wir freuen uns auf Sie. Tischreservierungen empfehlen wir besonders am Wochenende.</p>
+    <div class="hero-actions" style="justify-content:center;margin-top:2.5rem;">
+      <a href="#info" class="btn-primary">Tisch reservieren</a>
+      <a href="#menu" class="btn-ghost">Speisekarte ansehen</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><em>Bella</em> Italia Hannover</div>
+    <div class="footer-links">
+      <a href="#">Impressum</a>
+      <a href="#">Datenschutz</a>
+      <a href="#">Kontakt</a>
+    </div>
+    <div class="footer-copy">© 2025 Ristorante Bella Italia · Maschstraße · 30173 Hannover</div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Menu tabs
+  function showTab(id, btn) {
+    document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
