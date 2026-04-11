@@ -1012,5 +1012,24 @@ document.addEventListener('DOMContentLoaded',function(){
 <footer class="footer"><div class="footer-inner"><div class="footer-brand"><h3>Bella Italia</h3><p>Authentische italienische Küche — Pizza, Pasta, Fisch und Fleisch in familiärer Atmosphäre in Hannover.</p></div><div class="footer-col"><h4>Navigation</h4><ul><li><a href="#about">Über uns</a></li><li><a href="#menu">Speisekarte</a></li><li><a href="#gallery">Galerie</a></li><li><a href="#reviews">Bewertungen</a></li></ul></div><div class="footer-col"><h4>Kontakt</h4><ul><li><a href="tel:0511884296">0511 884296</a></li><li><a>Lemförder Str. 11<br>30169 Hannover</a></li></ul></div><div class="footer-col"><h4>Öffnungszeiten</h4><ul><li><a>Mo — So: 11:30 — 00:00 Uhr</a></li></ul></div></div><div class="footer-bottom"><p>© 2025 Bella Italia, Hannover. Alle Rechte vorbehalten.</p><p>Crafted with ♦ by SYSTEMS™</p></div></footer>
 <script>window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>80)});const o=new IntersectionObserver((e)=>{e.forEach(t=>{if(t.isIntersecting){t.target.style.opacity='1';t.target.style.transform='translateY(0)'}});},{threshold:.1,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('section,.feature,.menu-item,.review,.c-card,.g-item').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(30px)';el.style.transition='opacity .8s ease,transform .8s ease';o.observe(el)});document.querySelector('.nav').style.opacity='1';document.querySelector('.nav').style.transform='none';document.querySelector('.hero').style.opacity='1';document.querySelector('.hero').style.transform='none';</script>
 >>>>>>> 847ebd9 (Premium single-file HTML rebuild)
+
+<script>
+/* Fallback: ensure all content is visible even if animations fail */
+setTimeout(function(){
+  var els = document.querySelectorAll('[style*="opacity"]');
+  els.forEach(function(el){
+    if(getComputedStyle(el).opacity === '0'){
+      el.style.transition = 'opacity 0.5s ease';
+      el.style.opacity = '1';
+    }
+  });
+  /* Also check CSS-animated elements */
+  document.querySelectorAll('.fade-in,.slide-up,.animate-in,.reveal,.scroll-reveal').forEach(function(el){
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  });
+}, 3000);
+</script>
+
 </body>
 </html>
